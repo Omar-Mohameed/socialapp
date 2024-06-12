@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- Import Axios Liberary -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script></head>
+<body>
+
+  <!-- Start Nav Bar -->
+  <div class="container">
+    <header>
+      <div class="left" style="flex-basis: 50%;">
+        <ul>
+          <a href="home.html">
+            <li style="font-size: 18px ; font-weight: 900;">
+              <img class="logo-img-omr" src="./images/logo.png" style="width: 100px;height: 40px;" alt="">
+              </li>
+          </a>
+          <a href="home.html">
+            <li style="font-size: 18px ; font-weight: 900;">
+              <i class="fa-solid fa-house" style="display:flex;align-items:center;
+              flex-direction: column;font-size: 30px;"></i>
+              <span style="font-size: 15px;font-size: 14px;margin-top: 12px;display:inline-block;">Home</span>
+            </li>
+          </a>
+          <a href="profile.html" class="active">
+            <li id="profile-image" style="font-weight: 700;display: flex;flex-direction: column;align-items: center;position: relative;">
+              <img src="./images/imgprofile.png" style="width: 30px;height: 30px;border-radius: 50%;" alt="">
+              <span>Profile</span>
+              <span></span>
+              </li>
+          </a>
+        </ul>
+      </div>
+      <!-- For Mobile -->
+      <div class="icon">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <!-- For Mobile -->
+
+      <div class="toggle" style="display: none;">
+      <!-- LogOut Case -->
+      <div class="right logout-case"  id="logoutInput">
+        <!-- <img src="./images/imgprofile.png" alt="">
+        <span style="margin: 0 15px 0 15px;">Omar</span> -->
+        <button class="logout" onclick="logoutProcess()">Log Out</button>
+      </div>
+      <!-- Login Case -->
+      <div class="right login-case" id="loginInput">
+        <button class="login" id="openModalBtn">Login</button>
+        <button class="Register" id="openModalBtnRegister">Register</button>
+      </div>
+    </div>
+    </header>
+  </div>
+  <!-- End Nav Bar -->
+
+  <!--Start Success Alert -->
+  <div id="myAlert" class="alert alert-success d-none"  role="alert">
+    Successfully Logged In 
+  </div>
+  <!--End Success Alert -->
+
+
+  <!-- Start Models -->
+
+  <!-- Start Login Model -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form>
+            <h2>Login</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" value="omarmohamed" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" value="123456" required>
+          </form>
+          <button type="submit" id="login-submit">Login</button>
+          <span id="error-message" class="d-none">Invalid Username Or Password</span>
+    </div>
+</div>
+<!-- End Login Model -->
+
+<!-- Start Register Model -->
+<div id="myModalRegister" class="modal">
+<div class="modal-content">
+  <span class="close">&times;</span>
+  <form>
+      <h2>Register A New User</h2>
+      <label for="name-register">Name:</label>
+      <input type="text" id="name-register" name="Name" value="Omar" required>
+
+      <label for="profile-img-register">Profile Image:</label>
+      <input type="file" id="profile-img-register" name="Profile Image" required>
+
+      <label for="email-register">Email:</label>
+      <input type="email" id="email-register" value="Omar@google.com" name="Email" required>
+
+      <label for="username-register">Username:</label>
+      <input type="text" id="username-register" name="username" value="omarmohamed" required>
+
+      <label for="password-register">Password:</label>
+      <input type="password" id="password-register" name="password" value="123456" required>
+    </form>
+    <button type="submit" id="register-submit">Register</button>
+    <span id="error-message-register" class="d-none">The username has already been taken.</span>
+</div>
+</div>
+<!-- End Register Model -->
+
+  <!-- Start Create Post Model -->
+  <div id="myModalPost" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form>
+            <h2>Create A New Post</h2>
+            <label for="title-post">Post Title:</label>
+            <input type="text" id="title-post" name="title">
+
+            <label for="body-post">Post Body:</label>
+            <textarea style="margin-bottom: 10px;resize: none;width: 100%;height: 100px;border-radius: 10px;padding: 10px;" name="body" id="body-post"></textarea>
+
+            <label for="post-img">Post Image:</label>
+            <input type="file" id="post-img" name="post-img">
+
+          </form>
+          <button type="submit" id="create-post-button">Create</button>
+    </div>
+</div>
+  <!-- End Create Post Model -->
+
+<!-- Start Edit Posts -->
+<div id="myModalEditPost" class="modal">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <form>
+          <h2>Edit Your Post</h2>
+          <label for="new-title-post">Post Title:</label>
+          <input type="text" id="new-title-post" name="title">
+
+          <label for="new-body-post">Post Body:</label>
+          <textarea style="margin-bottom: 10px;resize: none;width: 100%;height: 100px;border-radius: 10px;padding: 10px;" name="body" id="new-body-post"></textarea>
+
+          <label for="new-post-img">Post Image:</label>
+          <input type="file" id="new-post-img" name="post-img">
+
+        </form>
+        <button type="submit" id="Edit-post-button">Update</button>
+  </div>
+</div>
+<!-- End Edit Posts -->
+
+<!-- Start Delete Post -->
+<div id="myModalDeletePost" class="modal">
+  <div class="modal-content" style="min-height: auto;">
+      <span class="close">&times;</span>
+      <form style="border: none;margin: 0;">
+          <h2 style="font-size: 1rem;margin-bottom: 10px;">Are you sure you want to delete the post?</h2>
+        </form>
+        <div style="display: flex;justify-content: end;">
+          <input type="submit" id="close-post-button" style="margin-top: 0;width: fit-content; font-size: 1rem;" class="edit-post" value="Close"></input>
+          <input type="submit" id="delete-post-button" style="margin-top: 0;width: fit-content; font-size: 1rem;" class="delete-post" value="yes,Delete"></input>
+        </div>
+  </div>
+</div>
+<!-- End Delete Post -->
+<!--\\ End Models \\-->
+
+
+<!--start Show Commints  -->
+<div class="parent" >
+  <div class="comment-post">
+    <div class="post-header">
+      <img
+        src="./images/imgprofile.png"alt="Profile Image"class="profile-image"/>
+      <div>
+        <span class="user-name">John Doe</span>
+        <span class="post-time">2 hrs ago</span>
+      </div>
+      <i class="fa-solid fa-xmark cancel-mark"></i>
+    </div>
+    <div class="sub">
+      <div class="post-body">
+        <h3 style="margin: 0;"></h3>
+        <p></p>
+      </div>
+      <div class="img"></div>
+      <div class="post-footer">
+        <button class="like-button">Like</button>
+        <button class="comment-button">Comment</button>
+        <button class="share-button">Share</button>
+      </div>
+      <div class="comments-section"></div>
+      <div class="add-comment"></div>
+    </div>
+  </div>
+</div>
+<!--End Show Commints  -->
+
+<!--Start Main Info -->
+<div class="container"> 
+  <div id="profile-info">
+
+    <!-- User Image -->
+    <div class="profile-user-image">
+      <img id="profile-user-image" src="./images/imgprofile.png" alt="">
+    </div>
+    <!-- UserName,Email,Name -->
+    <div class="main-info">
+      <div id="user-name">Name</div>
+      <div id="user-email">email</div>
+      <div id="user-username">userName</div>
+    </div>
+    <!-- POSTS & COMMENTS COUNT -->
+    <div class="details">
+      <div class="number-info posts">
+        <span id="posts-count">11</span>
+        Posts
+      </div>
+      <div class="number-info comments">
+        <span id="comments-count">14</span>
+        comments
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--End Main Info -->
+
+<div class="container" style="margin-top: 3rem;">
+  <h1> 
+    <span id="name-posts">omarmohamed's</span>
+      Posts
+  </h1>
+</div>
+
+<!--Start Main Content Posts-->
+<div class="container" id="posts-container"></div>
+<!-- End Main Content -->
+
+<!--Add Plus Sign After Login And Register -->
+<div id="plus-sign" class="d-none"><i class="fa-solid fa-plus"></i></div>
+<!--\\Add Plus Sign After Login And Register\\ -->
+
+<!--Start Arrow Up -->
+<div class="container">
+  <div class="arrow-up">
+    <span><i class="fa-solid fa-arrow-up fa-beat-fade"></i></span>
+  </div>
+</div>
+<!--End Arrow Up -->
+
+<!--\\====== Loader\\====== -->
+<div id="loader">
+  <div class="lds-roller">
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+</div>
+<!--\\====== Loader\\====== -->
+
+</body>
+<script src="profilescript.js"></script>
+</html>
