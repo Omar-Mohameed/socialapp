@@ -1,5 +1,6 @@
 <h3>Social App</h3>
 <h2>Live Demo : https://sociallapp1.netlify.app/ </h2>
+<h2>Live Demo : https://omar-mohameed.github.io/socialapp/home.html </h2>
 
 ![img0](https://github.com/Omar-Mohameed/socialapp/assets/161089615/926bd165-bba2-4486-af0b-8c6490e5a89b)
 
